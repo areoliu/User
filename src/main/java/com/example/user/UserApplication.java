@@ -1,9 +1,11 @@
 package com.example.user;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan(basePackages= {"com.example.user.dao","com.example.user.controller","com.example.user.config"})
 public class UserApplication {
 
 	public static void main(String[] args) {

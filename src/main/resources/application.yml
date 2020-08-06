@@ -1,0 +1,17 @@
+
+server:
+  port: 9005
+encrypt:
+  key-store:
+    location: mytest.jks
+    secret: mypass
+    alias: mytest
+security:
+  user:
+    name: root
+    password: 1234
+spring.datasource.url: jdbc:mysql://10.6.136.56:21500/test
+spring.datasource.username: root
+spring.datasource.password: 123456
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+
