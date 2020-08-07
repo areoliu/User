@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), true, true, true, true,
+                user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), true, true, true, true,
                 getGrantedAuthorities(user));
     }
 
