@@ -1,5 +1,6 @@
 package com.example.user.config;
 
+import com.example.user.service.AuthorizationCodeServicesImpl;
 import com.example.user.service.ClientDeatilServiceImpl;
 import com.example.user.service.MyClientDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -44,9 +46,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
-
-
-
+//    @Autowired
+//    private AuthorizationCodeServicesImpl austhorizationCodeServices;
 
 
     private final static String RESOURCE_ID = "order";
@@ -64,6 +65,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
 
         endpoints
+
+                .authorizationCodeServices(authorizationCodeServices())
                 .tokenStore(tokenStore)
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
@@ -72,6 +75,10 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
         // 要使用refresh_token的话，需要额外配置userDetailsService
         endpoints.userDetailsService(userDetailsService);
+    }
+
+    public AuthorizationCodeServices authorizationCodeServices() {
+        return new AuthorizationCodeServicesImpl();
     }
 
     public ClientDetailsService clientDetailsService() {
@@ -87,6 +94,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 ////                .resourceIds(RESOURCE_ID)
 ////                .accessTokenValiditySeconds(30000)
 ////                .refreshTokenValiditySeconds(50000);
+
         clients.withClientDetails(clientDetailsService());
     }
 
