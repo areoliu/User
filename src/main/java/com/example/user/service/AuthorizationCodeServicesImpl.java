@@ -5,15 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 public class AuthorizationCodeServicesImpl implements AuthorizationCodeServices {
 
-   // private final ConcurrentMap<String, OAuth2Authentication> codes = new ConcurrentHashMap<String, OAuth2Authentication>();
 
     @Autowired
     AuthCodeService authCodeService;
@@ -21,14 +19,15 @@ public class AuthorizationCodeServicesImpl implements AuthorizationCodeServices 
     @Override
     public String createAuthorizationCode(OAuth2Authentication oAuth2Authentication) {
         String code  = UUID.randomUUID().toString().trim().replaceAll("-", "");
-        AuthCode authCode=new AuthCode();
-        authCode.setCode(code);
+
         try {
-            authCode.setAuthentication(objectToBytes(oAuth2Authentication));
+            System.out.println("code is "+code);
+            byte[] bytes=objectToBytes(oAuth2Authentication);
+            System.out.println("byte is "+bytes);
+            authCodeService.insert(code,bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        authCodeService.insert(authCode);
         return code;
     }
 

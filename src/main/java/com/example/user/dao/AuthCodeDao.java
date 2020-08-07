@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthCodeDao {
 
-    @Insert("insert into oauth_code(#{code},#{authentication})")
-    public void insert(AuthCode authCode);
+    @Insert("insert into oauth_code(code,authentication)values(#{code},#{authentication})")
+    public void insert(String code,byte[] authentication);
 
     @Delete("delete from oauth_code where code=#{code}")
     public boolean delete(String code);

@@ -34,8 +34,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -66,7 +66,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
         endpoints
 
-                .authorizationCodeServices(authorizationCodeServices())
+//                .authorizationCodeServices(authorizationCodeServices())
                 .tokenStore(tokenStore)
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
@@ -77,9 +77,9 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         endpoints.userDetailsService(userDetailsService);
     }
 
-    public AuthorizationCodeServices authorizationCodeServices() {
-        return new AuthorizationCodeServicesImpl();
-    }
+//    public AuthorizationCodeServices authorizationCodeServices() {
+//        return new AuthorizationCodeServicesImpl();
+//    }
 
     public ClientDetailsService clientDetailsService() {
         return new ClientDeatilServiceImpl();
