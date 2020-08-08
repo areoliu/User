@@ -50,11 +50,13 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 //    private AuthorizationCodeServicesImpl austhorizationCodeServices;
 
 
-    private final static String RESOURCE_ID = "order";
+    private final static String RESOURCE_ID = "app-order";
+    private final static String RESOURCE_ID2 = "app-stock";
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer.realm(RESOURCE_ID) // code授权添加
+                .realm(RESOURCE_ID2)
                 .tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()") // allow check token
                 .allowFormAuthenticationForClients();
     }

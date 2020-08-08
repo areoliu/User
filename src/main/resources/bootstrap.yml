@@ -1,0 +1,27 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: user-login
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      server-addr: 47.75.88.208:8848
+
+
+
+#
+#  cloud:
+#    nacos:
+#      config:
+#        enabled: true
+#        encode: UTF-8
+#        server-addr: 47.75.88.208:8848
+#        namespace: service-provider-config
+#        group: service-provider-config
+#      discovery:
+#        server-addr: 47.75.88.208:8848
+#        namespace: service-provider-config
+#        group: service-provider-config
